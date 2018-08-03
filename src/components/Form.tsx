@@ -1,9 +1,5 @@
 import * as React from 'react'
-import Web3 = require('web3')
-
-const web3: any = new Web3()
-const provider = new web3.providers.HttpProvider('http://localhost:8545')
-web3.setProvider(provider)
+import { web3Instance } from './Web3Instance'
 
 export interface FormProps {
   onSubmit: (takerAddress: string) => void;
@@ -11,15 +7,16 @@ export interface FormProps {
 
 export interface FormState {
   takerAddress: string;
+  error: boolean;
 }
-// onChange: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+// onBlur: (event: React.SyntheticEvent<HTMLInputElement>) => void;
 
 class Form extends React.Component<FormProps, FormState> {
-  readonly state: FormState = { takerAddress: '' }
+  readonly state: FormState = { takerAddress: '', error: false }
 
-  private onChange = (event: React.FormEvent<HTMLInputElement>): void => {
+  private onBlur = (event: React.FormEvent<HTMLInputElement>): void => {
     console.log(this.validateAddress(event.currentTarget.value))
-    this.setState({ takerAddress: event.currentTarget.value}, () => console.log(this.state.takerAddress))
+    this.setState({ takerAddress: event.currentTarget.value, error: !this.validateAddress(event.currentTarget.value)}, () => console.log(this.state.takerAddress))
   }
 
   private onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -27,20 +24,15 @@ class Form extends React.Component<FormProps, FormState> {
     this.props.onSubmit(this.state.takerAddress)
   }
 
-  // private onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-  //   event.preventDefault()
-  //   this.props.onSubmit(this.state.takerAddress)
-  //   try {
-  //     const balance = await web3.eth.getBalance(this.state.takerAddress))
-  //     console.log('BALANCE:', balance)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  //
-  // }
-
   private validateAddress = (value: string): boolean => {
-    return web3.isAddress(value)
+    return web3Instance.isAddress(value)
+  }
+
+  private renderError = (): any => {
+    if (this.state.error) {
+      return <p>invalid address</p>
+    }
+    return null
   }
 
   render() {
@@ -48,9 +40,10 @@ class Form extends React.Component<FormProps, FormState> {
       <form onSubmit={this.onSubmit}>
         <label>
           Enter taker address:
-          <input type="text" onChange={this.onChange} />
+          <input type="text" onBlur={this.onBlur} />
         </label>
         <input type="submit" value="Look Up" />
+        { this.renderError() }
       </form>
     )
   }
