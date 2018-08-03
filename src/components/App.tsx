@@ -1,5 +1,9 @@
 import * as React from 'react'
 import Search from './Search'
+import Web3Instance from './Web3Instance'
+
+const w = Web3Instance.init()
+console.log(w)
 
 const App = () => (
   <div>
