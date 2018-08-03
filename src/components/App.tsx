@@ -1,14 +1,11 @@
 import * as React from 'react'
-import Counter from './Counter'
-import TakerForm from './TakerForm'
+import Search from './Search'
 
 const App = () => (
-  <h1>
-    Hello, worl asdf asdf sfd!<br />
-    You can update this text, and it will work
-    <Counter />
-    <TakerForm />
-  </h1>
+  <div>
+    <Search />
+    {/* here could be a balance component that displays taker's info */}
+  </div>
 )
 
 export default App
