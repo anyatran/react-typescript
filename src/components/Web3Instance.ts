@@ -1,17 +1,5 @@
 import web3 = require('web3')
 
-// export namespace Web3Instance {
-//   // ... any one time initialization goes here ..
-//   const web3Instance: any = new web3()
-//   const provider = new web3Instance.providers.HttpProvider('http://localhost:8545')
-//   web3Instance.setProvider(provider)
-//   export function getEthBalance(takerAddress: string): number {
-//     const balance = web3Instance.eth.getBalance(takerAddress)
-//     return web3Instance.toDecimal(balance)
-//   }
-// }
-// }
-
 class Web3Instance {
   private static _web3Instance: any
 

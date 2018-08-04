@@ -9,12 +9,15 @@ export interface FormState {
   takerAddress: string;
   error: boolean;
 }
-// onBlur: (event: React.SyntheticEvent<HTMLInputElement>) => void;
 
 class Form extends React.Component<FormProps, FormState> {
   readonly state: FormState = { takerAddress: '', error: false }
 
-  private onBlur = (event: React.FormEvent<HTMLInputElement>): void => {
+  constructor(props: FormProps) {
+    super(props)
+  }
+
+  private validateInput = (event: React.FormEvent<HTMLInputElement>): void => {
     console.log(this.validateAddress(event.currentTarget.value))
     this.setState({ takerAddress: event.currentTarget.value, error: !this.validateAddress(event.currentTarget.value)}, () => console.log(this.state.takerAddress))
   }
@@ -28,21 +31,21 @@ class Form extends React.Component<FormProps, FormState> {
     return web3Instance.isAddress(value)
   }
 
-  private renderError = (): any => {
+  private renderError = (): JSX.Element | null => {
     if (this.state.error) {
-      return <p>invalid address</p>
+      return <p className="Form__error">invalid address</p>
     }
     return null
   }
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <label>
+      <form className="Form" onSubmit={this.onSubmit}>
+        <label className="Form__label">
           Enter taker address:
-          <input type="text" onBlur={this.onBlur} />
+          <input className="Form__input-text" type="text" onBlur={this.validateInput} />
         </label>
-        <input type="submit" value="Look Up" />
+        <input className="Form__input-submit" type="submit" value="Look Up" />
         { this.renderError() }
       </form>
     )

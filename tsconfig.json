@@ -6,9 +6,8 @@
     "declaration": true,
     "strictNullChecks": true,
     "module": "commonjs",
-    "target": "es6",
+    "target": "es7",
     "jsx": "react",
-    "library": ["ES2017"],
     "typeRoots": ["node_modules/@types"]
   },
   "include": [

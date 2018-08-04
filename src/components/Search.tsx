@@ -1,22 +1,41 @@
 import * as React from 'react'
 import { web3Instance } from './Web3Instance'
 import Form from './Form'
+import Result from './Result'
 export interface SearchProps { }
+export interface SearchState {
+  balance: number | undefined;
+  takerAddress: string;
+}
 
-class Search extends React.Component<SearchProps, { }> {
+class Search extends React.Component<SearchProps, SearchState> {
+  readonly state: SearchState = { balance: undefined, takerAddress: '' }
 
-  componentDidMount() {
-    console.log('taker form props', this.props)
+  constructor(props: SearchProps) {
+    super(props)
   }
 
-  onSubmit = (takerAddress: string): void => {
+  getBalance = (takerAddress: string): void => {
     console.log('submit:', takerAddress)
     const balance = web3Instance.eth.getBalance(takerAddress)
-    console.log(web3Instance.toDecimal(balance))
+    this.setState({ balance: web3Instance.toDecimal(balance), takerAddress: takerAddress }, () => console.log(this.state.balance))
+  }
+
+  private renderResult = (): JSX.Element | null => {
+    const { takerAddress, balance } = this.state
+    if (takerAddress) {
+      return <Result takerAddress={takerAddress} balance={balance} />
+    }
+    return null
   }
 
   render() {
-    return <Form onSubmit={this.onSubmit} />
+    return (
+      <div className="Search">
+        <Form onSubmit={this.getBalance} />
+        { this.renderResult() }
+      </div>
+    )
   }
 }
 

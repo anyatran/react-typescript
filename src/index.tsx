@@ -24,17 +24,3 @@ if (process.env.NODE_ENV === 'production') {
     });
   }
 }
-//
-//
-//
-// if (process.env.NODE_ENV === 'production') {
-//   render(
-//     <App />,
-//     root
-//   );
-// } else {
-//   module.hot.accept('./components/App', () => {
-//     const NextRootContainer = require('./components/App').default;
-//     render(NextRootContainer, root);
-//   });
-// }
