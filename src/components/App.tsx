@@ -1,7 +1,11 @@
 import * as React from 'react'
 import Search from './Search'
 
-const App = () => (
+/**
+ * renders the application
+ * @return {JSX.Element}
+ */
+const App = (): JSX.Element => (
   <div>
     <Search />
   </div>

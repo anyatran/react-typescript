@@ -10,7 +10,10 @@
   "author": "Anya Tran",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^16.0.31",
+    "@types/react-dom": "^16.0.3",
     "@types/underscore": "^1.8.8",
+    "@types/webpack-env": "^1.13.6",
     "@types/web3": "^1.0.2",
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
@@ -24,9 +27,7 @@
     "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
-    "@types/react": "^16.0.31",
-    "@types/react-dom": "^16.0.3",
-    "@types/webpack-env": "^1.13.6",
+    "ethjs-ens": "^2.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.0.1",
