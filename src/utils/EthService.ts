@@ -56,7 +56,6 @@ class EthService {
    * @return {Promise<string | undefined>} - ENS address if it exist
    */
   ethToEns = async (address: string): Promise<string | undefined> => {
-    // console.log('ethtoens: ', this._web3.toHex(address), this._ens.registry)
     try {
       const ensAddress = await this._ens.reverse(this._web3.toHex(address))
       return ensAddress

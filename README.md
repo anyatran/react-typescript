@@ -4,6 +4,7 @@ A simple web app for looking up Ethereum balance. It accepts both hex-encoded an
 ## Guide
 * Install dependencies: `npm install`
 * Start the program: `npm start` and open `http://localhost:8080/`
+* Run tests: `npm test`
 
 ## Tools used
 * Typescript and React
