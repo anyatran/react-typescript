@@ -7,7 +7,7 @@ const onSubmit = jest.fn()
 const formShallow = shallow(<Form onSubmit={onSubmit}/>)
 const formMount = mount(<Form onSubmit={onSubmit} />)
 
-beforeEach(() => {
+afterEach(() => {
   formMount.setState({ error: false, takerAddress: undefined })
 })
 
