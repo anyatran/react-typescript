@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export interface ResultProps {
+export interface BalanceProps {
   balance: number | undefined;
   ensAddress: string | undefined;
   ethAddress: string | undefined;
@@ -13,12 +13,12 @@ export interface ResultProps {
  * @param {string | undefined} ethAddress
  * @return {JSX.Element}
  */
-const Result = ({ balance, ensAddress, ethAddress }: ResultProps): JSX.Element => (
-  <div className="Result">
-    Balance: {balance}
-    Taker Ethereum Address: {ethAddress}
-    Taker ENS Address: {ensAddress}
+const Balance = ({ balance, ensAddress, ethAddress }: BalanceProps): JSX.Element => (
+  <div className="Balance">
+    {ensAddress && <p>Taker ENS Address: {ensAddress}</p>}
+    {ethAddress && <p>Taker Ethereum Address: {ethAddress}</p>}
+    {balance !== undefined && <p>Balance: {balance} ETH</p>}
   </div>
 )
 
-export default Result
+export default Balance

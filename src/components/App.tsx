@@ -6,9 +6,7 @@ import Search from './Search'
  * @return {JSX.Element}
  */
 const App = (): JSX.Element => (
-  <div>
-    <Search />
-  </div>
+  <Search />
 )
 
 export default App

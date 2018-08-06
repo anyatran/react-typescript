@@ -1,0 +1,89 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body, input {
+  background-color: #000;
+  color: #fff;
+  font-family: monospace;
+}
+
+input:focus {
+  outline: none;
+}
+
+#main {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* SEARCH */
+.Search {
+  margin: 0 auto;
+  max-width: 700px;
+  position: relative;
+  width: 90vw;
+}
+
+.Search__error {
+  margin-top: 50px;
+}
+
+/* FORM */
+.Form {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50vh;
+  position: relative;
+}
+
+.Form__error {
+  bottom: -15px;
+  color: red;
+  font-size: 0.6rem;
+  position: absolute;
+  right: 70px;
+}
+
+.Form__input-text {
+  border: none;
+  border-bottom: 1px solid #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 10px;
+  padding: 3px 0;
+  width: 100%;
+}
+
+.Form__input-submit {
+  border-color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 3px;
+}
+
+/* BALANCE */
+.Balance {
+  margin-top: 50px;
+}
+
+/* small screens */
+@media only screen and (max-width: 700px) {
+  .Form {
+    flex-direction: column;
+  }
+
+  .Form__error {
+    bottom: 28px;
+    right: 0;
+  }
+
+  .Form__input-text {
+    margin: 0 0 20px 0;
+  }
+}

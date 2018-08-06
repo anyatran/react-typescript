@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ethService } from '../utils/EthService'
 
 export interface FormProps {
-  onSubmit: (takerAddress: string) => void;
+  onSubmit: (takerAddress: string | undefined) => void;
 }
 
 export interface FormState {
@@ -16,6 +16,7 @@ export interface FormState {
 class Form extends React.Component<FormProps, FormState> {
   readonly state: FormState = { error: false, takerAddress: undefined }
   private readonly inputRef: React.RefObject<HTMLInputElement> = React.createRef()
+  private _validated: boolean = false
 
   constructor(props: FormProps) {
     super(props)
@@ -29,7 +30,7 @@ class Form extends React.Component<FormProps, FormState> {
    */
   private lookUp = (): void => {
     const { error, takerAddress } = this.state
-    if (!error && takerAddress) {
+    if (!error) {
       this.props.onSubmit(takerAddress)
     }
   }
@@ -41,13 +42,16 @@ class Form extends React.Component<FormProps, FormState> {
    * @return {Promise<void>} Promise that sets the state
    */
   private validateInput = async (value: string): Promise<void> => {
-    if (value.trim()) {
-      await this.setState({
-        takerAddress: value.trim(),
-        error: !ethService.validateAddress(value)
-      })
-    } else if (this.state.error) {
-      await this.setState({ takerAddress: undefined, error: false })
+    if (!this._validated) {
+      if (value.trim()) {
+        await this.setState({
+          takerAddress: value.trim(),
+          error: !ethService.validateAddress(value)
+        })
+      } else {
+        await this.setState({ takerAddress: undefined, error: false })
+      }
+      this._validated = true
     }
   }
 
@@ -59,6 +63,16 @@ class Form extends React.Component<FormProps, FormState> {
    */
   private onBlur = async (event: React.FormEvent<HTMLInputElement>): Promise<void> => {
     await this.validateInput(event.currentTarget.value)
+  }
+
+  /**
+   * set _validated flag to false
+   * @private
+   * @param {React.ChangeEvent<HTMLInputElement>} event
+   * @return {void}
+   */
+  private onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    this._validated = false
   }
 
   /**
@@ -88,15 +102,15 @@ class Form extends React.Component<FormProps, FormState> {
   render() {
     return (
       <form className="Form" onSubmit={this.onSubmit}>
-        <label className="Form__label">
-          Enter taker address:
-          <input
-            ref={this.inputRef}
-            className="Form__input-text"
-            type="text"
-            onBlur={this.onBlur}
-          />
-        </label>
+        <label htmlFor="takerAddress" className="Form__label">Enter taker address:</label>
+        <input
+          name="takerAddress"
+          ref={this.inputRef}
+          className="Form__input-text"
+          type="text"
+          onBlur={this.onBlur}
+          onChange={this.onChange}
+        />
         <input className="Form__input-submit" type="submit" value="Look Up" />
         { this.renderError() }
       </form>

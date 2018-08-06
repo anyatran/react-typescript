@@ -3,9 +3,7 @@ import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import App from './components/App'
 
-// const render = Component: any => {
-const root = document.createElement('div')
-document.body.appendChild(root)
+const root = document.getElementById('main')
 
 if (process.env.NODE_ENV === 'production') {
   render(<App />, root);
